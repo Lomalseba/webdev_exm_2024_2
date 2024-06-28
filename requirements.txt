@@ -3,3 +3,5 @@ flask_sqlalchemy
 flask_migrate
 flask_login
 python-dotenv
+bleach
+werkzeug

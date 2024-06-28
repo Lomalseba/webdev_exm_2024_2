@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>111</h1>>
+<div class="container mt-4">
+    <div class="row">
+        {% for book in books %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{ book.cover.url }}" class="card-img-top" alt="{{ book.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">{{ book.short_desc }}</p>
+                    <p class="card-text"><small class="text-muted">{{ book.author }} - {{ book.year }}</small></p>
+                    {% if (current_user.is_authenticated and current_user.can('book_edit'))%}
+                    <a href="{{ url_for('books.edit_form', book_id=book.id) }}" class="btn btn-primary">Изменить</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

@@ -29,14 +29,12 @@ def login():
             user = User.query.filter_by(login=login).first()
             if user and user.check_password(password):
                 login_user(user, remember=remember_me)
-                flash("Вы успешно аутентифицированы.", "success")
-                # Поиск информации о прошлой странице
+                flash("успешно", "success")
                 next = request.args.get("next")
                 return redirect(next or url_for("index"))
-        flash("Невозможно аутентифицироваться с указанными логином и паролем", "danger")
+        flash("Пользователь не найден", "danger")
     return render_template("auth/login.html")
 
-# Функция для выхода из под учетной записи приложения
 @bp.route("/logout")
 @login_required
 def logout():

@@ -1,0 +1,76 @@
+{% macro form(book=None, creating_mode=False) %}
+<link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<div class="container">
+
+    <form method="POST" action="{% if creating_mode %} {{ url_for('books.create') }} {% else %}{{ url_for('books.edit',  book_id=book.id) }} {% endif %}" enctype="multipart/form-data">
+        <div class="row">
+
+
+            <div class="col-md-6">
+                <label for="title">Название книги</label>
+                <input class="form-control" name="title" id="title" value="{{ book.title or '' }}" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="author">Автор</label>
+                <input class="form-control" name="author" id="author"  value="{{ book.author or '' }}" required>
+            </div>
+
+
+            <div class="col-md-6">
+                <label for="year">Год написания</label>
+                <input class="form-control" type="number" name="year" id="year"  value="{{ book.year or '' }}" required>
+            </div>
+
+
+            <div class="col-md-6">
+                <label for="publish">Издательство</label>
+                <input class="form-control flex-grow-1" name="publish" id="publish"  value="{{ book.publish or '' }}" required>
+            </div>
+
+
+            <div id="genres" class="col-md-6">
+                <label for="genre">Жанр(-ы)</label>
+                {% if genres %}
+                <select class="form-select" multiple name="genre" id="genre">
+                    {% for genre in genres %}
+                    <option value="{{ genre.id }}" {% if genre.id in selected_genres_ids %} selected {% endif %} >{{ genre.title }}</option>
+                    {% endfor %}
+                {% endif %}
+                </select>
+            </div>
+
+
+            <div class="col-md-6">
+                <label for="pages">Количество страниц</label>
+                <input class="form-control flex-grow-1" name="pages" id="pages" type="number" min="1"  value="{{ book.pages or '' }}" required>
+            </div>
+
+
+            <div class="w-100 mb-2">
+                <label for="short_desc">Описание</label>
+                <textarea id="short_desc" name="short_desc">{{ book.short_desc or '' }}</textarea>
+            </div>
+
+
+            {% if creating_mode %}
+                <div class="col-md-12">
+                    <label for="cover">Обложка</label>
+                    <input class="form-control" type="file" name="cover" id="cover">
+                </div>
+            {% endif %}
+
+
+            <div class="m-3 text-center">
+                <input type="submit" class="btn btn-dark" value="Сохранить">
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    const easyMDE = new EasyMDE({element: document.getElementById('short_desc')});
+</script>
+
+{% endmacro %}

@@ -9,3 +9,6 @@ USER_ROLE = 1
 MODERATOR_ROLE = 2
 ADMINISTRATOR_ROLE = 3
 
+
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'media', 'images')
+

@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% from 'form_macros.html' import form with context %}
+
+{% block content %}
+{{ form(creating_mode=True) }}
+{% endblock %}

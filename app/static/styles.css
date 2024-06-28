@@ -6,3 +6,17 @@
     background-color: orange;
     color: white;
 }
+
+.base_main {
+    flex-grow: 1 !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.div_main {
+
+}
+
+.body_base {
+    min-height: 100vh;
+}
